@@ -1,0 +1,63 @@
+library(Seurat)
+library(dplyr)
+library(ggplot2)
+library(umap)
+
+st_obj_final2_sum <- subset(st_obj_final2, features = feature_genes)
+counts_matrix <- GetAssayData(st_obj_final2_sum, assay = "RNA", slot = "counts")
+
+unique_cell_types <- names(table(st_obj_final2_sum@meta.data$group2))
+merged_data_list <- list()
+counts_matrix <- GetAssayData(st_obj_final2_sum, assay = "RNA", slot = "counts")
+
+for (cell_type in unique_cell_types) {
+  cell_names <- colnames(st_obj_final2_sum[, st_obj_final2_sum@meta.data$group2 == cell_type])
+  selected_cells_data <- counts_matrix[, cell_names]
+  merged_cell_data <- rowSums(selected_cells_data)
+  merged_data_list[[cell_type]] <- merged_cell_data
+}
+
+merged_data_df <- do.call(cbind, merged_data_list)
+final_merged_df <- t(merged_data_df)
+
+pca_result <- prcomp(final_merged_df, scale. = TRUE)
+summary(pca_result)
+
+pca_data <- data.frame(
+  PC1 = pca_result$x[, 1],
+  PC2 = pca_result$x[, 2],
+  Group = rownames(final_merged_df)
+)
+
+set.seed(123)
+kmeans_result <- kmeans(pca_data[, c("PC1", "PC2")], centers = 3)
+pca_data$Cluster <- as.factor(kmeans_result$cluster)
+
+p <- ggplot(pca_data, aes(x = PC1, y = PC2, label = Group, color = Cluster)) +
+  geom_point(alpha = 0.8, size = 3) +
+  geom_text(vjust = -1.5, hjust = 0.5, check_overlap = TRUE) +
+  theme_minimal() +
+  theme(legend.position = "right") +
+  labs(x = "PC1", y = "PC2", color = "Cluster")
+print(p)
+
+data_subset <- t(final_merged_df)
+n_samples <- ncol(data_subset)
+n_neighbors_adjusted <- min(15, n_samples - 1)
+
+umap_result <- umap(t(data_subset), n_neighbors = n_neighbors_adjusted, min_dist = 0.1, n_components = 2)
+umap_layout <- umap_result$layout
+
+umap_data <- data.frame(
+  UMAP1 = umap_layout[, 1],
+  UMAP2 = umap_layout[, 2],
+  Group = rownames(final_merged_df)
+)
+
+p_umap <- ggplot(umap_data, aes(x = UMAP1, y = UMAP2, color = Group, label = Group)) +
+  geom_point(alpha = 0.8, size = 3) +
+  geom_text(vjust = 1.5, hjust = 0.5, check_overlap = TRUE, size = 3) +
+  theme_minimal() +
+  theme(legend.position = "right") +
+  labs(x = "UMAP1", y = "UMAP2", color = "Group")
+print(p_umap)
