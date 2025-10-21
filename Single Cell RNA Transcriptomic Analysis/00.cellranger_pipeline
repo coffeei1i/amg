@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+#############################################
+# User-configurable variables (edit below)  #
+#############################################
+
+ID="20240927"
+TRANSCRIPTOME="cellranger/refdata-gex-GRCm39-2024-A/"
+FASTQS="20240927/"
+SAMPLE="0240927"
+LOCALCORES="10"
+LOCALMEM="100"
+CREATE_BAM="true"
+
+#############################################
+# Nothing to change below in most cases     #
+#############################################
+
+# Optional: allow env var overrides without editing the file
+ID="${ID:-${ID}}"
+TRANSCRIPTOME="${TRANSCRIPTOME:-${TRANSCRIPTOME}}"
+FASTQS="${FASTQS:-${FASTQS}}"
+SAMPLE="${SAMPLE:-${SAMPLE}}"
+LOCALCORES="${LOCALCORES:-${LOCALCORES}}"
+LOCALMEM="${LOCALMEM:-${LOCALMEM}}"
+CREATE_BAM="${CREATE_BAM:-${CREATE_BAM}}"
+
+# Basic checks
+command -v cellranger >/dev/null 2>&1 || {
+  echo "ERROR: cellranger 未在 PATH 中，请先加载或安装 cellranger。" >&2
+  exit 1
+}
+
+[[ -d "$TRANSCRIPTOME" ]] || { echo "ERROR: 转录组索引目录不存在: $TRANSCRIPTOME" >&2; exit 1; }
+[[ -d "$FASTQS" ]] || { echo "ERROR: FASTQ 目录不存在: $FASTQS" >&2; exit 1; }
+
+echo "Running cellranger count with:"
+echo "  ID            = $ID"
+echo "  TRANSCRIPTOME = $TRANSCRIPTOME"
+echo "  FASTQS        = $FASTQS"
+echo "  SAMPLE        = $SAMPLE"
+echo "  LOCALCORES    = $LOCALCORES"
+echo "  LOCALMEM      = $LOCALMEM"
+echo "  CREATE_BAM    = $CREATE_BAM"
+echo
+
+cellranger count \
+  --id="$ID" \
+  --transcriptome="$TRANSCRIPTOME" \
+  --fastqs="$FASTQS" \
+  --sample="$SAMPLE" \
+  --localcores="$LOCALCORES" \
+  --localmem="$LOCALMEM" \
+  --create-bam="$CREATE_BAM"
