@@ -1,0 +1,99 @@
+setwd('/data')
+rm(list=ls())
+library(ggplot2)
+library(Seurat)
+library(dplyr)
+library(tidyr)
+library(igraph)
+library(data.table)
+library(HDF5Array)
+library(harmony)
+library(monocle3)
+
+#tha
+tha=dior::read_h5("combine.h5")
+
+tha@assays[["RNA"]]@counts=tha@assays[["counts"]]@data
+tha@assays[["RNA"]]@data=tha@assays[["counts"]]@data
+tha@assays[["counts"]]=NULL
+tha=NormalizeData(tha, normalization.method = "LogNormalize", scale.factor = 10000)  
+tha@meta.data[["celltype2"]]=tha@meta.data[["celltype"]]
+tha@meta.data[["region_type"]]="tha"
+
+
+exn=dior::read_h5("scdata.h5")
+exn@assays[["RNA"]]@counts=exn@assays[["raw"]]@data
+exn@assays[["RNA"]]@data=exn@assays[["raw"]]@data
+exn@assays[["log1p"]]=NULL
+exn@assays[["raw"]]=NULL
+exn=NormalizeData(exn, normalization.method = "LogNormalize", scale.factor = 10000)  
+exn@meta.data[["region_type"]]="ExN_part_InN"
+exn@meta.data[["celltype2"]]=exn@meta.data[["Celltype"]]
+
+scRNA_harmony <- merge(x=exn, y=c(tha))
+scRNA_harmony <- FindVariableFeatures(scRNA_harmony) %>% ScaleData() %>% RunPCA(verbose=FALSE)
+scRNA_harmony <- RunHarmony(scRNA_harmony, group.by.vars = "region_type",dims = 1:16,theta =2.1)#目前最好
+
+scRNA_harmony <- FindNeighbors(scRNA_harmony, reduction = "harmony", dims = 1:16) %>% FindClusters(resolution = 0.5)
+scRNA_harmony <- RunUMAP(scRNA_harmony, reduction = "harmony", dims = 1:10)
+plot1 = DimPlot(scRNA_harmony, reduction = "umap", group.by='celltype2',label=TRUE) 
+plot2 = DimPlot(scRNA_harmony, reduction = "umap", group.by='region_type')
+#combinate
+plotc <- plot1+plot2
+plotc
+
+
+scRNA_harmony <- RunHarmony(scRNA_harmony, group.by.vars = "region_type",dims = 1:20,theta =3)
+scRNA_harmony <- FindNeighbors(scRNA_harmony, reduction = "harmony", dims = 1:20) %>% FindClusters(resolution = 0.5)
+scRNA_harmony <- RunUMAP(scRNA_harmony, reduction = "harmony", dims = 1:j)
+plot1 = DimPlot(scRNA_harmony, reduction = "umap", group.by='celltype2',label=TRUE) 
+plot2 = DimPlot(scRNA_harmony, reduction = "umap", group.by='region_type')
+
+aa=as.data.frame(scRNA_harmony@reductions[["umap"]]@cell.embeddings)
+data <- GetAssayData(scRNA_harmony, assay = 'RNA', slot = 'count')
+cell_metadata <- scRNA_harmony@meta.data
+gene_annotation <- data.frame(gene_short_name = rownames(data))
+rownames(gene_annotation) <- rownames(data)
+cds <- new_cell_data_set(data,
+                         cell_metadata = cell_metadata,
+                         gene_metadata = gene_annotation)
+cds <- preprocess_cds(cds, num_dim = 10)
+# cds <- preprocess_cds(cds, num_dim = 20)
+plot_pc_variance_explained(cds)
+cds <- reduce_dimension(cds)
+
+
+cds <- cluster_cells(cds, resolution=1e-18)
+plot_cells(cds, color_cells_by = "partition")
+
+cds <- learn_graph(cds, verbose = FALSE, 
+                   learn_graph_control = list(minimal_branch_len = 4,
+                                              geodesic_distance_ratio = 0.5))
+colData(cds)[,'celltype2'] %>% table()
+get_earliest_principal_node  <- function(cds, time_bin=c("Other","Other")){
+  # get_earliest_principal_node  <- function(cds, time_bin=c("Interested","Interested")){
+  cell_ids <- which(colData(cds)[, "celltype2"] == time_bin[1]|colData(cds)[, "celltype2"] == time_bin[2])
+  closest_vertex <-cds@principal_graph_aux[["UMAP"]]$pr_graph_cell_proj_closest_vertex
+  closest_vertex <- as.matrix(closest_vertex[colnames(cds), ])
+  root_pr_nodes <-
+    igraph::V(principal_graph(cds)[["UMAP"]])$name[as.numeric(names(which.max(table(closest_vertex[cell_ids,]))))]
+  root_pr_nodes
+}
+# cds = order_cells(cds)
+cds = order_cells(cds, root_pr_nodes=get_earliest_principal_node(cds))
+plot_cells(cds,
+               color_cells_by = "pseudotime",
+               label_cell_groups=FALSE,
+               label_leaves=FALSE,
+               label_branch_points=FALSE,
+               graph_label_size=1.5,
+               group_label_size=4,cell_size=1)
+
+
+
+
+
+
+
+
+
