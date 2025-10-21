@@ -1,0 +1,72 @@
+suppressPackageStartupMessages({
+  library(Seurat)
+  library(dplyr)
+  library(data.table)
+  library(clustree)
+  library(ggplot2)
+})
+
+set.seed(1234)
+
+
+sc_obj <- seurat_object_PIC
+
+# QC metrics and filtering
+sc_obj[["percent.mt"]]   <- PercentageFeatureSet(sc_obj, pattern = "(?i)^mt-")
+sc_obj[["percent.ribo"]] <- PercentageFeatureSet(sc_obj, pattern = "(?i)^rp[sl]")
+sc_obj <- subset(
+  sc_obj,
+  subset = nFeature_RNA >= 200 &
+           nFeature_RNA <= 6000 &
+           percent.mt <= 15
+)
+VlnPlot(sc_obj, features = c("nFeature_RNA","nCount_RNA","percent.mt","percent.ribo"),
+        ncol = 4, pt.size = 0)
+
+# Normalization
+sc_obj <- SCTransform(sc_obj, verbose = FALSE)
+
+# Dimensionality reduction and clustering
+sc_obj <- RunPCA(sc_obj, assay = "SCT", verbose = FALSE)
+ElbowPlot(sc_obj, ndims = 50)
+use.dims <- 1:30
+sc_obj <- FindNeighbors(sc_obj, reduction = "pca", dims = use.dims)
+sc_obj <- FindClusters(sc_obj, resolution = 0.4, verbose = FALSE)
+sc_obj <- RunUMAP(sc_obj, reduction = "pca", dims = use.dims, verbose = FALSE)
+DimPlot(sc_obj, reduction = "umap", group.by = "seurat_clusters", label = TRUE)
+
+# Resolution sweep + clustree
+for (r in c(0.2, 0.4, 0.6, 0.8, 1.0)) {
+  sc_obj <- FindClusters(sc_obj, resolution = r, verbose = FALSE)
+}
+clustree(sc_obj@meta.data, prefix = "SCT_snn_res.")
+Idents(sc_obj) <- sc_obj$SCT_snn_res.0.4
+
+# Marker visualization
+FeaturePlot(sc_obj, features = c("C3ar1","Slc17a6","Slc17a7","Gad1","Gad2"), ncol = 5)
+VlnPlot(sc_obj, features = c("C3ar1","Slc17a6","Slc17a7","Gad1","Gad2"), pt.size = 0)
+
+# Find markers
+markers_all <- FindAllMarkers(
+  sc_obj, only.pos = TRUE, logfc.threshold = 0.25, min.pct = 0.1, assay = "SCT"
+) %>% arrange(cluster, desc(avg_log2FC))
+data.table::fwrite(markers_all, file = "markers_all_res0.4.tsv", sep = "\t")
+
+# Heatmap overview
+marker_panel <- c("Slc17a7","Slc17a6","Gad1","Gad2","C3ar1","P2ry12","Aif1","Aqp4","Gfap",
+                  "Mbp","Mog","Olig1","Olig2","Pdgfra","Cldn5","Pecam1")
+DoHeatmap(sc_obj, features = intersect(marker_panel, rownames(sc_obj)),
+          group.by = "seurat_clusters", size = 3)
+
+
+
+# Source: partially derived from
+# "Molecular and cellular evolution of the amygdala across species analyzed by single-nucleus transcriptome profiling"
+# Bin Yu, Qianqian Zhang, Lin Lin, Xin Zhou, Wenji Ma, Shaonan Wen, Chunyue Li, Wei Wang, Qian Wu, Xiaoqun Wang & Xiao-Ming Li
+
+
+
+saveRDS(sc_obj, file = "seurat_obj_SCT_res0.4.rds")
+writeLines(capture.output(sessionInfo()), "sessionInfo.log")
+
+seurat_object_PIC <- sc_obj
