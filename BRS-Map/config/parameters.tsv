@@ -1,0 +1,19 @@
+parameter	value	unit_or_definition
+minimum_cells_per_unit_celltype	20	cells per experimental_unit_id x Celltype
+formal_minimum_units_per_arm	3	independent experimental units
+low_power_minimum_units_per_arm	2	independent experimental units
+formal_fdr	0.05	Benjamini-Hochberg FDR
+formal_abs_logfc	0.25	absolute log2 fold change
+minimum_genes_per_direction	10	genes after target-expression intersection
+formal_maximum_genes_per_direction	100	genes
+fallback_maximum_genes_per_direction	20	genes
+ucell_max_rank	1500	ranked genes per cell
+identity_primary_score	0.50	prediction-score lower bound
+identity_sensitivity_score	0.30	prediction-score lower bound
+minimum_query_feature_coverage	0.70	fraction
+knn_k	20	neighbors
+pca_dimensions	1:30	reference PCA dimensions
+round1_minimum_cells	100	external source cells of the exact Celltype
+round2_minimum_cells	100	scored snRNA reference cells of the exact Celltype
+stereo_identity_column	predicted_classes4	Stereo-seq CellBin identity field
+ap_order_status	UNRESOLVED_DO_NOT_GUESS	anterior-posterior order

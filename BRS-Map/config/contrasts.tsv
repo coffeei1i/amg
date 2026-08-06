@@ -1,0 +1,17 @@
+accession	contrast_id	case_label	control_label	comparison_label	domain	configured_evidence
+E-MTAB-12096	cfc_2h_batch_b_vs_hc_batch_b	CFC_2h_batch_B	HC_batch_B	CFC 2 h	fear conditioning	low_power
+E-MTAB-12096	cfc_8h_batch_a_vs_hc_batch_a	CFC_8h_batch_A	HC_batch_A	CFC 8 h	fear conditioning	low_power
+E-MTAB-12096	cfc_24h_batch_a_vs_hc_batch_a	CFC_24h_batch_A	HC_batch_A	CFC 24 h	fear conditioning	low_power
+E-MTAB-12096	recall_2h_batch_b_vs_hc_batch_b	recall_2h_batch_B	HC_batch_B	Recall 2 h	fear conditioning	low_power
+GSE103976	immobilization_vs_shared_ctl	immobilization	shared_ctl	Immobilization	stress and seizure	formal
+GSE103976	ptz_seizure_vs_shared_ctl	ptz_seizure	shared_ctl	PTZ seizure	stress and seizure	low_power
+GSE231790	fasted_20h_vs_ad_libitum_fed_wt	fasted_20h_wt	ad_libitum_fed_wt	Fasted vs fed	feeding	low_power
+GSE246147	fear_training_recall_vs_no_fear	fear_training_recall	no_fear	FR vs NF	fear recall	formal
+GSE254360	uninjured_55c_vs_uninjured_no_stimulus	uninjured_55c	uninjured_no_stimulus	55 C heat	pain	formal
+GSE254360	uninjured_light_touch_vs_uninjured_no_stimulus	uninjured_light_touch	uninjured_no_stimulus	Light touch	pain	formal
+GSE254360	sni_no_stimulus_vs_uninjured_no_stimulus	sni_no_stimulus	uninjured_no_stimulus	SNI baseline	pain	formal
+GSE254360	sni_light_touch_vs_uninjured_light_touch	sni_light_touch	uninjured_light_touch	SNI touch	pain	formal
+GSE256522	stfp_vs_odour_only	STFP	odour_only	STFP vs odour	social memory	formal
+GSE256522	stfp_vs_home_cage	STFP	home_cage	STFP vs HC	social memory	formal
+GSE256522	odour_only_vs_home_cage	odour_only	home_cage	Odour vs HC	social memory	low_power
+GSE310656	familiar_dominant_urine_vs_familiar_subordinate_urine	familiar_dominant_urine	familiar_subordinate_urine	Dominant vs subordinate	social odour	descriptive

@@ -1,0 +1,9 @@
+accession	status	domain	n_objects	n_cells	n_comparisons	note
+E-MTAB-12096	retained	fear conditioning	23	239677	4	CFC and recall time points
+GSE103976	retained	stress and seizure	1	20679	2	collapsed nonduplicative all-cell object
+GSE207128	excluded	substance dependence	9	NA	0	behavior metadata unresolved
+GSE231790	retained	feeding	5	23839	1	fed Htr2a-Cre excluded from primary contrast
+GSE246147	retained	fear recall	1	6361	1	animal metadata recovered from GEO SOFT and article
+GSE254360	retained	pain and SNI	15	534153	4	five conditions with three objects per condition
+GSE256522	retained	social memory	1	3315	3	13 independent animals represented in one matrix
+GSE310656	retained	social odour	2	33152	1	one pooled object per condition; descriptive only

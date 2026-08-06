@@ -1,0 +1,23 @@
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+.superpowers/
+
+# BRS-Map data and generated results are never versioned.
+**/output/
+**/output.staging/
+**/*.rds
+**/*.h5ad
+**/*.h5
+**/*.loom
+**/*.mtx
+**/*.mtx.gz
+
+# Credentials and local environment files.
+.env
+.env.*
+*.pem
+*.key
+credentials*
+secrets*

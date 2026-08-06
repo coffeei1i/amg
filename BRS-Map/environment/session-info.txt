@@ -1,0 +1,13 @@
+BRS-Map tested runtime contract
+R >= 4.2
+Matrix
+data.table
+edgeR
+UCell
+RANN
+Seurat 4.x / SeuratObject 4.x (upstream identity-mapped objects)
+jsonlite
+digest
+
+The exact installed versions should be captured with sessionInfo() for each
+formal run and stored beside, not inside, the public source repository.
