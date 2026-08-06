@@ -9,16 +9,21 @@ cd BRS-Map
 Rscript scripts/run_brs_map.R --stage preflight
 ```
 
-For a formal stage, copy `examples/server_adapter_template.R` to a private
-working directory, implement only its data-loading and checkpoint-writing
-functions, and run:
+For a formal stage, first make a local adapter copy and edit only its
+data-loading and checkpoint-writing functions:
+
+```bash
+cp examples/server_adapter_template.R local_adapter.R
+```
+
+Then run:
 
 ```bash
 Rscript scripts/run_brs_map.R \
   --stage all \
   --input-root inputs \
   --output-root results_new \
-  --adapter config/local_adapter.R
+  --adapter local_adapter.R
 ```
 
 Use `--resume` only when the adapter performs strict checkpoint validation.

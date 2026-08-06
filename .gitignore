@@ -21,3 +21,6 @@
 *.key
 credentials*
 secrets*
+
+# Private project-specific BRS-Map I/O adapter.
+BRS-Map/local_adapter.R
