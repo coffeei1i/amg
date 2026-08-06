@@ -5,6 +5,8 @@ signed behavioral response scores from external single-cell RNA-seq datasets
 and transferring those scores through a fixed snRNA-seq reference to
 Stereo-seq CellBins.
 
+![BRS-Map workflow](workflow/BRS-Map_workflow.png)
+
 ## Public input boundary
 
 BRS-Map starts from harmonized external single-cell objects that already
@@ -24,7 +26,7 @@ re-computation are outside this module.
 ## Framework
 
 1. Aggregate cells by independent experimental unit and cell type.
-2. Classify sample/statistical evidence as formal, low power, or descriptive.
+2. Classify sample/statistical evidence as `formal`, `low_power`, or `descriptive`.
 3. Estimate cell-type-specific differential expression.
 4. Build formal or ranked-logFC fallback signed gene programs.
 5. Calculate `UCell_up - UCell_down` for each eligible external cell.

@@ -15,12 +15,26 @@ text_files <- files[grepl(
   "\\.(R|md|tsv|txt|yml|yaml|json)$", files, ignore.case = TRUE
 )]
 contents <- unlist(lapply(text_files, readLines, warn = FALSE), use.names = FALSE)
-unix_data_pattern <- paste0("(^|[^A-Za-z])", "/", "data[0-9]*/")
-windows_data_pattern <- paste0("Z:", "/", "data")
-stopifnot(!any(grepl(
-  paste(unix_data_pattern, windows_data_pattern, sep = "|"),
-  contents
-)))
+absolute_path_pattern <- paste0(
+  "(^|[[:space:]='\"`(])(",
+  "[A-Za-z]:[/\\\\]|",
+  "/(data[0-9]*|home|Users|mnt|your)/",
+  ")"
+)
+stopifnot(!any(grepl(absolute_path_pattern, contents, perl = TRUE)))
+markdown_files <- text_files[grepl("[.]md$", text_files, ignore.case = TRUE)]
+for (markdown_path in markdown_files) {
+  markdown <- paste(readLines(markdown_path, warn = FALSE), collapse = "\n")
+  matches <- regmatches(markdown, gregexpr("!?\\[[^]]*\\]\\(([^)]+)\\)", markdown, perl = TRUE))[[1L]]
+  if (!length(matches) || identical(matches, character(0))) next
+  targets <- sub("^.*\\(([^)]+)\\)$", "\\1", matches)
+  local_targets <- targets[!grepl("^(https?://|#|mailto:)", targets)]
+  stopifnot(!any(grepl("^(/|[A-Za-z]:[/\\\\]|file:)", local_targets, perl = TRUE)))
+  for (target in local_targets) {
+    target_path <- file.path(dirname(markdown_path), URLdecode(target))
+    stopifnot(file.exists(target_path))
+  }
+}
 stopifnot(!any(grepl("(token|password|secret)[[:space:]]*=", contents,
                      ignore.case = TRUE)))
 

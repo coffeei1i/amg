@@ -22,12 +22,13 @@ stopifnot(
   p$round2_minimum_cells == 100L
 )
 stopifnot(
-  brs_public_evidence("FORMAL") == "formal",
-  brs_public_evidence("AUXILIARY_LOW_POWER") == "low_power",
-  brs_public_evidence("EXPLORATORY_POOL") == "descriptive",
-  brs_public_evidence("pool_only") == "descriptive"
+  brs_public_evidence("formal") == "formal",
+  brs_public_evidence("low_power") == "low_power",
+  brs_public_evidence("descriptive") == "descriptive"
 )
-bad <- try(brs_public_evidence("unknown"), silent = TRUE)
-stopifnot(inherits(bad, "try-error"))
+for (invalid_label in c("invalid_label", "unknown")) {
+  bad <- try(brs_public_evidence(invalid_label), silent = TRUE)
+  stopifnot(inherits(bad, "try-error"))
+}
 
 cat("CONTRACT TEST PASS\n")

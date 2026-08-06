@@ -26,12 +26,8 @@ brs_parameters <- function() {
 brs_public_evidence <- function(value) {
   value <- as.character(value)
   map <- c(
-    FORMAL = "formal",
     formal = "formal",
-    AUXILIARY_LOW_POWER = "low_power",
     low_power = "low_power",
-    EXPLORATORY_POOL = "descriptive",
-    pool_only = "descriptive",
     descriptive = "descriptive"
   )
   result <- unname(map[value])

@@ -16,9 +16,9 @@ functions, and run:
 ```bash
 Rscript scripts/run_brs_map.R \
   --stage all \
-  --input-root /your/input/root \
-  --output-root /your/new/output/root \
-  --adapter /your/private/brs_map_adapter.R
+  --input-root inputs \
+  --output-root results_new \
+  --adapter config/local_adapter.R
 ```
 
 Use `--resume` only when the adapter performs strict checkpoint validation.
