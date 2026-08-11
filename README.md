@@ -8,3 +8,4 @@ This project focuses on deciphering the organizational principles of functional 
 ## BRS-Map
 
 The reproducible behavioral-response score mapping framework is available in [BRS-Map](BRS-Map/README.md), with exact parameters, English Methods, tests, and editable workflow assets.
+<img width="2032" height="514" alt="974d7a9b4af3fc8ed8291b752a176beb" src="https://github.com/user-attachments/assets/4995536f-5ef9-4407-8501-dbe95e3c50f3" />
