@@ -32,7 +32,26 @@ re-computation are outside this module.
 5. Calculate `UCell_up - UCell_down` for each eligible external cell.
 6. Transfer scores to same-type snRNA-seq cells by unit-balanced weighted kNN.
 7. Transfer snRNA scores to same-type Stereo-seq CellBins using the same rule.
-8. Export score, uncertainty, coverage, distance, and provenance audits.
+8. Remove Celltype programs whose aggregate Round-1 and Round-2 score directions disagree.
+9. Prefer primary identity results and use an eligible sensitivity result only when primary is unavailable (`S` marker); mark ranked-logFC fallback programs with `*`.
+10. Export score, uncertainty, coverage, distance, direction, scaling and provenance audits.
+
+## Final readout contract
+
+- Neuronal landscape: scale individual valid snRNA scores within each exact
+  behavior-by-Celltype group by that group's maximum absolute value, clip to
+  `[-1,1]`, and then calculate the mean scaled score. The method never scales
+  already-averaged contrast columns.
+- Per-program spatial maps: calculate one 95th percentile absolute-value
+  denominator jointly across M1, M2 and M3 for the same program, then clip to
+  `[-1,1]`. Slices are neither normalized separately nor averaged.
+- Integrated spatial maps reuse those frozen program-level values without a
+  second scaling operation.
+- Subnuclear landscape: pool unique neurons from all three sections and report
+  `(positive_n - negative_n) / (positive_n + negative_n)`; point size records
+  the proportion of neurons with a valid Round-2 score.
+
+These operations are implemented in [`R/final_readout.R`](R/final_readout.R).
 
 See [the full English Methods](docs/METHODS.md) and the
 [workflow diagram](workflow/BRS-Map_workflow.svg). Exact settings are stored in
@@ -55,3 +74,8 @@ Run `Rscript scripts/run_brs_map.R --stage preflight` first. Formal stages requi
 - Cell identity: `primary` or `sensitivity`.
 
 The dimensions are independent and are retained in every downstream audit table.
+
+For the primary presentation, identity selection is primary-first. An eligible
+sensitivity result is used only when the matching primary result is unavailable;
+it is explicitly marked `S`. A ranked-logFC fallback program is marked `*`, so
+`S*` means sensitivity identity plus fallback gene program.

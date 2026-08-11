@@ -13,5 +13,5 @@ GSE254360	sni_no_stimulus_vs_uninjured_no_stimulus	sni_no_stimulus	uninjured_no_
 GSE254360	sni_light_touch_vs_uninjured_light_touch	sni_light_touch	uninjured_light_touch	SNI touch	pain	formal
 GSE256522	stfp_vs_odour_only	STFP	odour_only	STFP vs odour	social memory	formal
 GSE256522	stfp_vs_home_cage	STFP	home_cage	STFP vs HC	social memory	formal
-GSE256522	odour_only_vs_home_cage	odour_only	home_cage	Odour vs HC	social memory	low_power
+GSE256522	odour_only_vs_home_cage	odour_only	home_cage	Odour vs HC	social memory	formal
 GSE310656	familiar_dominant_urine_vs_familiar_subordinate_urine	familiar_dominant_urine	familiar_subordinate_urine	Dominant vs subordinate	social odour	descriptive

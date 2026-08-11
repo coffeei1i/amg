@@ -19,8 +19,30 @@ stopifnot(
   p$knn_k == 20L,
   identical(p$pca_dimensions, 1:30),
   p$round1_minimum_cells == 100L,
-  p$round2_minimum_cells == 100L
+  p$round2_minimum_cells == 100L,
+  p$spatial_scaling_quantile == 0.95,
+  p$landscape_scaling_quantile == 1,
+  p$visualization_lower_limit == -1,
+  p$visualization_upper_limit == 1
 )
+
+contrast_path <- file.path(
+  dirname(dirname(normalizePath(sub("^--file=", "", grep(
+    "^--file=", commandArgs(trailingOnly = FALSE), value = TRUE)[[1L]])))),
+  "config", "contrasts.tsv"
+)
+contrasts <- read.delim(contrast_path, check.names = FALSE, stringsAsFactors = FALSE)
+gse256522 <- contrasts[contrasts$accession == "GSE256522", , drop = FALSE]
+stopifnot(
+  nrow(gse256522) == 3L,
+  setequal(gse256522$contrast_id, c(
+    "stfp_vs_odour_only",
+    "stfp_vs_home_cage",
+    "odour_only_vs_home_cage"
+  )),
+  all(gse256522$configured_evidence == "formal")
+)
+
 stopifnot(
   brs_public_evidence("formal") == "formal",
   brs_public_evidence("low_power") == "low_power",

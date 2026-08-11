@@ -15,5 +15,11 @@ knn_k	20	neighbors
 pca_dimensions	1:30	reference PCA dimensions
 round1_minimum_cells	100	external source cells of the exact Celltype
 round2_minimum_cells	100	scored snRNA reference cells of the exact Celltype
+direction_zero_tolerance	0	absolute score tolerance for direction consistency
+landscape_scaling_quantile	1	maximum absolute score within each behavior x Celltype
+spatial_scaling_quantile	0.95	joint absolute-score quantile across all three slices
+visualization_lower_limit	-1	lower display limit after scaling
+visualization_upper_limit	1	upper display limit after scaling
+identity_selection_policy	primary_then_sensitivity	primary preferred; sensitivity used only when primary is unavailable
 stereo_identity_column	predicted_classes4	Stereo-seq CellBin identity field
 ap_order_status	UNRESOLVED_DO_NOT_GUESS	anterior-posterior order

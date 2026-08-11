@@ -7,6 +7,9 @@ repository_root <- dirname(module_root)
 
 required <- c(
   file.path(module_root, "README.md"),
+  file.path(module_root, "R", "final_readout.R"),
+  file.path(module_root, "workflow", "BRS-Map_workflow.svg"),
+  file.path(module_root, "workflow", "BRS-Map_workflow.drawio"),
   file.path(repository_root, ".gitignore")
 )
 stopifnot(all(file.exists(required)))

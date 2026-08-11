@@ -26,5 +26,9 @@ brs_stage_round2 <- function(input_root, output_root, module_root, resume) {
 }
 
 brs_stage_audit <- function(input_root, output_root, module_root, resume) {
+  # Apply audit_direction_consistency() to Round-1 and Round-2 outputs, then
+  # select_final_identity(), summarise_celltype_landscape(),
+  # scale_spatial_joint_q95(), and summarise_subnuclear_directional_balance().
+  # Return every final score, direction, scaling and provenance audit path.
   character()
 }

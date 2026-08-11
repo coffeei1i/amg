@@ -1,9 +1,9 @@
 {
-  "file": "BRS-Map\\workflow\\BRS-Map_workflow.drawio",
+  "file": "BRS-Map_workflow.drawio",
   "summary": {
-    "total_findings": 6,
+    "total_findings": 8,
     "fail": 0,
-    "warn": 6,
+    "warn": 8,
     "passed": true,
     "clean": false
   },
@@ -11,66 +11,86 @@
   "warns": [
     {
       "rule": "font-box-cavernous",
-      "element_id": "source",
-      "message": "Box 'source' is 190px tall with effective fontSize=12.0 (ratio 15.8:1). Text will look tiny and lost. Either shrink box or increase font.",
+      "element_id": "inputs",
+      "message": "Box 'inputs' is 270px tall with effective fontSize=13.0 (ratio 20.8:1). Text will look tiny and lost. Either shrink box or increase font.",
       "detail": {
-        "box_height": 190.0,
-        "font_size": 12.0,
-        "ratio": 15.8
+        "box_height": 270.0,
+        "font_size": 13.0,
+        "ratio": 20.8
       }
     },
     {
       "rule": "font-box-cavernous",
       "element_id": "identity",
-      "message": "Box 'identity' is 190px tall with effective fontSize=12.0 (ratio 15.8:1). Text will look tiny and lost. Either shrink box or increase font.",
+      "message": "Box 'identity' is 270px tall with effective fontSize=13.0 (ratio 20.8:1). Text will look tiny and lost. Either shrink box or increase font.",
       "detail": {
-        "box_height": 190.0,
-        "font_size": 12.0,
-        "ratio": 15.8
+        "box_height": 270.0,
+        "font_size": 13.0,
+        "ratio": 20.8
       }
     },
     {
       "rule": "font-box-cavernous",
-      "element_id": "score",
-      "message": "Box 'score' is 190px tall with effective fontSize=12.0 (ratio 15.8:1). Text will look tiny and lost. Either shrink box or increase font.",
+      "element_id": "evidence",
+      "message": "Box 'evidence' is 270px tall with effective fontSize=13.0 (ratio 20.8:1). Text will look tiny and lost. Either shrink box or increase font.",
       "detail": {
-        "box_height": 190.0,
-        "font_size": 12.0,
-        "ratio": 15.8
+        "box_height": 270.0,
+        "font_size": 13.0,
+        "ratio": 20.8
+      }
+    },
+    {
+      "rule": "font-box-cavernous",
+      "element_id": "ucell",
+      "message": "Box 'ucell' is 270px tall with effective fontSize=13.0 (ratio 20.8:1). Text will look tiny and lost. Either shrink box or increase font.",
+      "detail": {
+        "box_height": 270.0,
+        "font_size": 13.0,
+        "ratio": 20.8
       }
     },
     {
       "rule": "font-box-cavernous",
       "element_id": "round1",
-      "message": "Box 'round1' is 190px tall with effective fontSize=12.0 (ratio 15.8:1). Text will look tiny and lost. Either shrink box or increase font.",
+      "message": "Box 'round1' is 270px tall with effective fontSize=13.0 (ratio 20.8:1). Text will look tiny and lost. Either shrink box or increase font.",
       "detail": {
-        "box_height": 190.0,
-        "font_size": 12.0,
-        "ratio": 15.8
+        "box_height": 270.0,
+        "font_size": 13.0,
+        "ratio": 20.8
       }
     },
     {
       "rule": "font-box-cavernous",
       "element_id": "round2",
-      "message": "Box 'round2' is 190px tall with effective fontSize=12.0 (ratio 15.8:1). Text will look tiny and lost. Either shrink box or increase font.",
+      "message": "Box 'round2' is 270px tall with effective fontSize=13.0 (ratio 20.8:1). Text will look tiny and lost. Either shrink box or increase font.",
       "detail": {
-        "box_height": 190.0,
-        "font_size": 12.0,
-        "ratio": 15.8
+        "box_height": 270.0,
+        "font_size": 13.0,
+        "ratio": 20.8
       }
     },
     {
       "rule": "font-box-cavernous",
-      "element_id": "spatial",
-      "message": "Box 'spatial' is 190px tall with effective fontSize=12.0 (ratio 15.8:1). Text will look tiny and lost. Either shrink box or increase font.",
+      "element_id": "direction",
+      "message": "Box 'direction' is 270px tall with effective fontSize=13.0 (ratio 20.8:1). Text will look tiny and lost. Either shrink box or increase font.",
       "detail": {
-        "box_height": 190.0,
-        "font_size": 12.0,
-        "ratio": 15.8
+        "box_height": 270.0,
+        "font_size": 13.0,
+        "ratio": 20.8
+      }
+    },
+    {
+      "rule": "font-box-cavernous",
+      "element_id": "readouts",
+      "message": "Box 'readouts' is 270px tall with effective fontSize=13.0 (ratio 20.8:1). Text will look tiny and lost. Either shrink box or increase font.",
+      "detail": {
+        "box_height": 270.0,
+        "font_size": 13.0,
+        "ratio": 20.8
       }
     }
   ],
-  "vertex_count": 7,
-  "edge_count": 5,
-  "canvas": "1386x279"
+  "vertex_count": 12,
+  "edge_count": 7,
+  "canvas": "1800x560"
 }

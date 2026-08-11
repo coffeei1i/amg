@@ -18,6 +18,12 @@ brs_parameters <- function() {
     pca_dimensions = 1:30,
     round1_minimum_cells = 100L,
     round2_minimum_cells = 100L,
+    direction_zero_tolerance = 0,
+    landscape_scaling_quantile = 1,
+    spatial_scaling_quantile = 0.95,
+    visualization_lower_limit = -1,
+    visualization_upper_limit = 1,
+    identity_selection_policy = "primary_then_sensitivity",
     stereo_identity_column = "predicted_classes4",
     ap_order_status = "UNRESOLVED_DO_NOT_GUESS"
   )

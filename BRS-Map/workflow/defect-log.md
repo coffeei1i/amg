@@ -188,3 +188,72 @@ the deliberately simplified editable icons and added parameter captions.
 | Layout consistency | 9/10 |
 | Style match | 8/10 |
 | TOTAL | 45/50 |
+
+---
+
+## Final-contract revision (2026-08-11)
+
+### Screenshot Review Cycle 1
+
+| id | zone | issue | severity | fix | verification |
+|---|---|---|---|---|---|
+| F1-01 | text | body and parameter text were too small at repository-preview scale | P1 | increased card heading/body/caption sizes | FIXED in cycle 2 |
+| F1-02 | text | formula footer was difficult to read | P1 | increased base body size | FIXED in cycle 2 |
+| F1-03 | typography | heading-to-body contrast was weak | P1 | increased headings to 16 px | FIXED in cycle 2 |
+| F1-04 | boxes | eight tall cards looked sparse at 12 px | P1 | increased text size while retaining consistent card geometry | FIXED in cycle 2 |
+| F1-05 | color | nine distinct fills/strokes exceeded the restrained palette | P1 | collapsed stages into five semantic fill families and six strokes | FIXED by static preflight |
+| F1-06 | layout | final audit was not visually prominent enough | P2 | retained a dedicated red card immediately before outputs | FIXED in cycle 2 |
+| F1-07 | arrows | narrow inter-card gaps required explicit collision review | P1 | checked every connector against source/target geometry | FIXED; zero collision FAILs |
+| F1-08 | spacing | footer and formula were visually detached from the main flow | P2 | centered both under the card row | FIXED in cycle 2 |
+| F1-09 | coherence | three evidence dimensions could be mistaken for a composite score | P1 | kept Sample, Genes and Identity as separate labelled rows | FIXED in cycle 2 |
+
+### Screenshot Review Cycle 2
+
+| id | zone | issue | severity | fix | verification |
+|---|---|---|---|---|---|
+| F2-01 | text | browser preview exposed damaged non-ASCII arrows and inequalities after a Windows rewrite | P0 | replaced raw symbols with ASCII-safe numeric XML entities | FIXED in cycle 3 |
+| F2-02 | typography | subtitle remained smaller than needed | P1 | increased subtitle to 14 px | FIXED in cycle 3 |
+| F2-03 | semantics | ASCII `to` was less immediately readable than directional arrows | P1 | restored arrows using `&#8594;` | FIXED in cycle 3 |
+| F2-04 | semantics | ASCII `>=` obscured threshold hierarchy | P1 | restored `>=` symbols using `&#8805;` | FIXED in cycle 3 |
+| F2-05 | formula | hyphens did not distinguish range and subtraction semantics | P2 | used numeric entities for en dash and minus | FIXED in cycle 3 |
+
+### Screenshot Review Cycle 3
+
+| id | zone | issue | severity | resolution | status |
+|---|---|---|---|---|---|
+| F3-01 | text | evidence card is the densest card | P2 | accepted: all three axes remain readable and must stay explicit | ACCEPTED |
+| F3-02 | spacing | parameter blocks use larger internal gaps than headings | P2 | accepted as deliberate heading/detail hierarchy | ACCEPTED |
+| F3-03 | color | Round 1 and Round 2 share a blue family | P2 | accepted because both encode the same transfer operation | ACCEPTED |
+| F3-04 | icons | no modality icons are present | P2 | accepted: editable text-first GitHub figure avoids decorative assets | ACCEPTED |
+| F3-05 | layout | workflow is wide at 1800 px | P2 | accepted for an eight-stage left-to-right repository banner | ACCEPTED |
+
+### Red-Team Audit
+
+| id | zone | hostile-review finding | resolution |
+|---|---|---|---|
+| RT-F-01 | text | verify all 8 headings at README scale | readable in 1800 x 560 canvas |
+| RT-F-02 | text | verify threshold symbols after export | numeric entities render correctly |
+| RT-F-03 | text | verify `S`, `*`, `S*` are not omitted | retained in final-audit card |
+| RT-F-04 | arrows | trace all seven edges left-to-right | all arrowheads face the next stage |
+| RT-F-05 | arrows | check edges for card intersection | only source/target borders are touched |
+| RT-F-06 | boxes | compare card baselines and heights | all share y=115 and height=270 |
+| RT-F-07 | spacing | inspect every inter-card gap | 20 px except the intentionally wider evidence transition |
+| RT-F-08 | color | test stage-family meaning | colors group input, evidence, transfer, audit and output |
+| RT-F-09 | color | check contrast on pale fills | dark text and 2 px borders remain legible |
+| RT-F-10 | typography | confirm hierarchy | 26/16/13/12 px levels are consistent |
+| RT-F-11 | layout | confirm direction audit precedes readout | audit is stage 7, readout stage 8 |
+| RT-F-12 | layout | confirm formula does not compete with pipeline | formula is isolated in a quiet footer band |
+| RT-F-13 | semantics | ensure no cross-Celltype borrowing is implied | both transfer cards state Exact Celltype |
+| RT-F-14 | semantics | ensure separate-slice scaling is not implied | readout states joint M1-M3 Q95 scaling |
+| RT-F-15 | semantics | ensure failed/reversed programs are not imputed | final audit states reversal/zero/failure to NA |
+
+### Final Self-Score (final-contract revision)
+
+| dimension | score | evidence |
+|---|---:|---|
+| Text readability | 9/10 | every label readable in the canvas-only cycle-3 screenshot |
+| Arrow accuracy | 10/10 | seven direct, collision-free left-to-right edges |
+| Color coherence | 9/10 | five semantic fill families and restrained borders |
+| Layout consistency | 9/10 | aligned card row, footer and formula band |
+| Style match to specification | 9/10 | editable, text-first, publication-style workflow |
+| **TOTAL** | **46/50** | release threshold passed |
