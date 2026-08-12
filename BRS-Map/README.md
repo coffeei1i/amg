@@ -16,12 +16,17 @@ contain:
 - unique cell identifiers;
 - accession and object identifiers;
 - condition and independent `experimental_unit_id` metadata;
-- a unified 41-type `Celltype` label;
+- a unified `Celltype` label drawn from 49 harmonized amygdala cell types;
 - `mapping_status` (`accepted`, `sensitivity`, or `unassigned`);
 - coordinates in the frozen reference PCA space.
 
 Raw-data download, cell calling, QC, doublet removal, and Seurat anchor
 re-computation are outside this module.
+
+Anchor-based identity mapping uses the complete 49-type reference vocabulary.
+Downstream neuronal landscapes and spatial summaries are restricted to the 41
+neuronal types within that vocabulary; non-neuronal types remain available for
+identity and audit outputs but are not included in these neuronal visualizations.
 
 ## Framework
 

@@ -257,3 +257,15 @@ the deliberately simplified editable icons and added parameter captions.
 | Layout consistency | 9/10 | aligned card row, footer and formula band |
 | Style match to specification | 9/10 | editable, text-first, publication-style workflow |
 | **TOTAL** | **46/50** | release threshold passed |
+
+## Identity-vocabulary correction (2026-08-12)
+
+| check | expected | actual | status |
+|---|---|---|---|
+| anchor identity vocabulary | complete harmonized reference | 49 Celltypes | PASS |
+| downstream neuronal display | neuronal subset only | 41 neuronal types | PASS |
+| separation of scopes | non-neuronal labels retained for audit, not neuronal figures | stated in Methods and readout card | PASS |
+| evidence-card typography | labels and values remain visually separated | colons and spacing added | PASS |
+
+The final PNG was regenerated from the corrected SVG and inspected at full
+canvas scale. No clipping, connector collision or label overflow was observed.

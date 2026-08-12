@@ -8,10 +8,25 @@ transfers them through a fixed amygdala snRNA-seq reference to Stereo-seq
 CellBins. The released analysis retained seven accessions, 48 objects, 16
 prespecified comparisons and 861,176 post-QC external cells. External objects
 contained raw RNA counts, condition and independent `experimental_unit_id`
-metadata, and labels mapped to a common 41-Celltype vocabulary. Identity
+metadata, and labels mapped to 49 harmonized amygdala cell types. Identity
 mapping was performed upstream with one Seurat anchor set, one transfer of the
-41-type label and one reference-UMAP projection per query. Queries with
+49-type label and one reference-UMAP projection per query. Queries with
 reference-feature coverage below 0.70 were rejected.
+
+Each external object was mapped independently to the fixed snRNA-seq reference
+using the complete 49-type vocabulary. The maximum prediction score across the
+49 terminal labels determined mapping confidence. Downstream neuronal
+landscapes and spatial summaries were restricted to the 41 neuronal types;
+the remaining non-neuronal types were retained in identity and audit outputs.
+The reference and each query were processed with SCT normalization. One
+`FindTransferAnchors` operation was run per query using reference PCA dimensions
+1–30, `k.anchor = 5` and at most 3,000 integration features; objects sharing
+fewer than 200 genes with the reference features were rejected. The same anchor
+set was used once to transfer the 49-type label and once to project the query
+into the frozen reference UMAP. `k.score` and `k.weight` were capped at 30 and
+50, respectively, and were reduced when required for small query objects. The
+mapping seed was 1,729. Cell-class labels used for broad summaries were derived
+from the terminal 49-type assignment rather than from a second anchor analysis.
 
 Three evidence dimensions were retained independently. Sample/statistical
 evidence was `formal`, `low_power` or `descriptive`; the gene program was
@@ -95,13 +110,14 @@ Sensitivity plus fallback was therefore marked `S*`.
 
 ## Final scaling and visualization
 
-For the neuronal response landscape, individual valid Round-1 snRNA scores
+For the neuronal response landscape, the 41 neuronal types were retained and
+individual valid Round-1 snRNA scores
 were scaled within each behavior-by-Celltype group. Each score was divided by
 the maximum absolute score in that group and clipped to [-1,1]; the scaled
 cell scores were then averaged. Scaling therefore preceded averaging and was
 not applied to already summarized contrast columns.
 
-For each individual Round-2 spatial program, one denominator was calculated
+For each individual Round-2 spatial program among the 41 neuronal types, one denominator was calculated
 jointly across all valid target neurons in M1, M2 and M3. The denominator was
 the 95th percentile of the absolute raw Round-2 score. Raw scores were divided
 by this shared denominator and clipped to [-1,1]. Sections were neither scaled

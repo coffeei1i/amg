@@ -8,6 +8,15 @@ minimum_genes_per_direction	10	genes after target-expression intersection
 formal_maximum_genes_per_direction	100	genes
 fallback_maximum_genes_per_direction	20	genes
 ucell_max_rank	1500	ranked genes per cell
+identity_reference_celltypes	49	harmonized amygdala Celltypes used for anchor-based identity mapping
+visualized_neuronal_celltypes	41	neuronal Celltypes retained for downstream BRS-Map visualization
+identity_anchor_normalization	SCT	Seurat reference-query normalization method
+identity_anchor_k	5	k.anchor for FindTransferAnchors
+identity_anchor_max_features	3000	maximum integration features
+identity_anchor_min_shared_features	200	minimum shared genes required for mapping
+identity_score_k_cap	30	maximum k.score, reduced for small queries
+identity_weight_k_cap	50	maximum k.weight, reduced for small queries
+identity_mapping_seed	1729	random seed for anchor-based identity mapping
 identity_primary_score	0.50	prediction-score lower bound
 identity_sensitivity_score	0.30	prediction-score lower bound
 minimum_query_feature_coverage	0.70	fraction

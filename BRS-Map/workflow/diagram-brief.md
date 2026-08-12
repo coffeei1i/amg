@@ -21,7 +21,7 @@
 | id | requirement | planned visual encoding |
 |---|---|---|
 | R1 | three evidence dimensions remain independent | three labelled rows in the evidence card |
-| R2 | one anchor and one 41-type transfer per query | identity card |
+| R2 | one anchor and one 49-type transfer per query; 41 neuronal types visualized downstream | identity and readout cards |
 | R3 | exact-Celltype Round 1 and Round 2, k=20, PCs 1-30, source >=100 | two blue/purple cards |
 | R4 | direction reversals removed | explicit red audit card before outputs |
 | R5 | final scaling rules | readout card with landscape, Q95 spatial and pooled balance |

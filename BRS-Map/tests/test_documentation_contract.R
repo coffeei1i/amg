@@ -13,6 +13,9 @@ required <- c(
   "at least 100", "exact Celltype", "experimental-unit size",
   "direction reversal", "95th percentile", "primary-first",
   "pooled neuronal directional balance",
+  "49 harmonized amygdala cell types", "41 neuronal types",
+  "`k.anchor = 5`", "3,000 integration features", "fewer than 200 genes",
+  "capped at 30", "50, respectively", "mapping seed was 1,729",
   "predicted_classes4", "UNRESOLVED_DO_NOT_GUESS"
 )
 stopifnot(all(vapply(required, grepl, logical(1L), x = text, fixed = TRUE)))
